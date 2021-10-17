@@ -1,0 +1,4 @@
+- name: Install the EPEL repository
+  yum:
+    name: epel-release  # An RPM package that will install the yum for me
+    state: present

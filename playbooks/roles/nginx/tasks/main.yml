@@ -1,0 +1,23 @@
+---
+# tasks file for nginx
+- name: Install the EPEL repository
+  yum: name=epel-release state=present
+
+- name: Install the Nginx package
+  yum: name=nginx state=present  
+
+- name: Upload the nginx.conf modified file
+  copy: 
+    src: files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx   
+
+- name: Upload the reverse proxy configuration file
+  template:                                             ## Template: A file that gets dynamically generated during playbook execution   
+    src: reverse_proxy.conf.jn2                         ## Jinja2: A templating engine used in Python-based apps
+    dest: /etc/nginx/conf.d/reverse_proxy.conf          ##you can name the reverse_proxy.conf any name you wish to use
+  notify: restart nginx 
+
+- name: Start and enable Nginx
+  service: name=nginx state=started enabled=yes   
+

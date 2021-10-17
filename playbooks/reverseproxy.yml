@@ -1,0 +1,38 @@
+---
+# - hosts: nginx
+#   become: yes
+#   roles:
+#     - nginx
+
+
+# #Pre and Post Tasks lecture
+# ---
+# - hosts: nginx
+#   become: yes
+#   tasks:
+#     - debug:
+#         msg: "This task will get executed after the role"
+#   roles:
+#     - nginx
+
+#Pre_task example
+# - hosts: nginx
+#   become: yes
+#   pre_tasks:
+#     - debug:
+#         msg: "This task will get executed before the role"
+#   roles:
+#     - nginx
+
+#Pre and Post Task example
+- hosts: nginx
+  become: yes
+  pre_tasks:
+    - debug:
+        msg: "This task will get executed before the role"
+  roles:
+    - nginx
+
+  post_tasks:
+    - debug:
+        msg: "This task will get executed after the role"
